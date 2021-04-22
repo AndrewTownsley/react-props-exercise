@@ -1,10 +1,10 @@
-import logo from "./logo.svg";
 import "./App.css";
 
 class App extends Component {
   constructor(props) {
     super(props);
-
+    let boxes = [];
+    let numBoxes = 24;
     // set default state
 
     // bind methods to this
