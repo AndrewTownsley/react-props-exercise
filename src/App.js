@@ -1,12 +1,22 @@
+import React, { Component} from 'react';
 import "./App.css";
+
+let boxes = [];
+let numBoxes = 24;
 
 class App extends Component {
   constructor(props) {
     super(props);
-    let boxes = [];
-    let numBoxes = 24;
     // set default state
 
+    for(let i = 0; i < numBoxes; i++) {
+      boxes.push({});
+    }
+    console.log(boxes);
+
+    this.setState({
+      App: 'boxes',
+    });
     // bind methods to this
   }
 
