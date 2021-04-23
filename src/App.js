@@ -21,30 +21,36 @@ class App extends Component {
       boxes,
     });
     // bind methods to this
-    
+    this.handleBoxClick = this.handleBoxClick.bind(this);
   }
 
   handleBoxClick(event) {
     const newBoxes = this.state.boxes.map((box) => {
       if(box.id === event.target.id) {
-        box.color = ``;
+        box.color = `rgb(${this.getRandomColor()}, ${this.getRandomColor()}, ${this.getRandomColor()})`;
       }
       return box;
-    }
+    });
   
-
+// Set new state after changing box color...
     this.setState({
       boxes: newBoxes,
     })
   }
 
   getRandomColor() {
-    let rgb = Math.floor(Math.random() * 256);
+    const rgb = Math.floor(Math.random() * 256);
     return rgb;
   }
 
   render() {
-
+    const renderBoxes = this.state.boxes.map((box) => {
+      <Box values={
+      {key: box.id},
+      {id: box.id},
+      {color: box.color}}
+      methods={{handleBoxClick: this.handleBoxClick}}/>
+    })
 
     return (
       <main
