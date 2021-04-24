@@ -1,31 +1,39 @@
-import React, { Component} from 'react';
 import "./App.css";
+import React, { Component } from 'react';
 import Box from './components/Box';
 
-const boxes = [];
-const numBoxes = 24;
 
-for(let i = 0; i < numBoxes; i++) {
+
+class App extends Component {
+  constructor() {
+    super();
+    // set default state
+    const boxes = [];
+    const numBoxes = 24;
+
+    for(let i = 0; i < numBoxes; i++) {
   boxes.push({
     id: i,
     color: `rgb(${this.getRandomColor()}, ${this.getRandomColor()}, ${this.getRandomColor()})`
 });
 }
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    // set default state
-
-    this.state({
+    this.state = {
       boxes,
-    });
+    };
     // bind methods to this
     this.handleBoxClick = this.handleBoxClick.bind(this);
+    this.getRandomColor = this.getRandomColor.bind(this);
+  }
+
+  getRandomColor() {
+    const rgb = Math.floor(Math.random() * 256);
+    return rgb;
   }
 
   handleBoxClick(event) {
-    const newBoxes = this.state.boxes.map((box) => {
+    const { boxes } = this.state
+    const newBoxes = boxes.map((box) => {
       if(box.id === event.target.id) {
         box.color = `rgb(${this.getRandomColor()}, ${this.getRandomColor()}, ${this.getRandomColor()})`;
       }
@@ -38,20 +46,17 @@ class App extends Component {
     })
   }
 
-  getRandomColor() {
-    const rgb = Math.floor(Math.random() * 256);
-    return rgb;
-  }
-
   render() {
     const renderBoxes = this.state.boxes.map((box) => {
+      return (
       <Box values={
       {key: box.id},
       {id: box.id},
       {color: box.color}}
       methods={{handleBoxClick: this.handleBoxClick}}/>
-    })
-
+    );
+    });
+    
     return (
       <main
         style={{
